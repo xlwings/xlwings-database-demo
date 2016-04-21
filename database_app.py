@@ -1,5 +1,4 @@
 import os
-import inspect
 import logging
 
 from sqlalchemy import create_engine
@@ -8,7 +7,7 @@ import xlwings as xw
 
 from models import Artist, Album
 
-this_dir = os.path.realpath(os.path.dirname(inspect.getfile(inspect.currentframe())))
+this_dir = os.path.abspath(os.path.dirname(__file__))
 
 # Logging
 logging.basicConfig(filename=os.path.join(this_dir, 'xlwings-database.log'),
