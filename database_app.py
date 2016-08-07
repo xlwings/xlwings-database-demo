@@ -23,10 +23,10 @@ session = Session()
 
 
 def artist_query():
-    xw.Workbook.caller()
+    sht = xw.Book.caller().sheets[0]
 
-    xw.Range('A4').table.clear_contents()
-    query_string = '%{0}%'.format(xw.Range('B1').value)
+    sht.range('A4').expand().clear_contents()
+    query_string = '%{0}%'.format(sht.range('B1').value)
 
     log.info('Performing query with: {0}'.format(query_string))
 
@@ -36,8 +36,7 @@ def artist_query():
     log.info('Query returned {0} records.'.format(artist_album.count()))
 
     try:
-        xw.Range('A4').value = artist_album.all()
+        sht.range('A4').value = artist_album.all()
     except Exception as e:
-        # E.g. will be triggered for queries that return 0 records
         log.exception(e)
-        xw.Range('A4').value = 'An error occurred!'
+        sht.range('A4').value = 'An error occurred!'
